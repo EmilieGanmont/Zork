@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Zork
 {
@@ -49,7 +50,8 @@ namespace Zork
             return Enum.TryParse(commandString, true, out Commands result) ? result : Commands.Unknown;
           
         }
-        
 
+        private static readonly string[] _rooms = { "Forest", "West of House", "Behind House", "Clearing", "Canyon View" };
+        private static int _currentRoom = 1;
     }
 }
