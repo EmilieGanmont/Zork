@@ -64,7 +64,7 @@ namespace Zork
 
             switch (command)
             {
-                case Commands.North when Location.Row < 2: //Don't keep '2', magic number
+                case Commands.North when Location.Row < _rooms.GetLength(0)-1: 
                     Location.Row++;
                     didMove = true;
                     break;
@@ -74,7 +74,7 @@ namespace Zork
                     didMove = true;
                     break;
 
-                case Commands.East when Location.Column < 2: //Don't keep '2', magic number
+                case Commands.East when Location.Column < _rooms.GetLength(1) - 1: 
                     Location.Column++;
                     didMove = true;       
                     break;
