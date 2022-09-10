@@ -14,7 +14,7 @@ namespace Zork
 
             while (isRunning)
             {
-                Console.Write($"{_rooms[_currentRoom]}\n> ");
+                Console.Write($"{_rooms[Location.Row, Location.Column]}\n> ");
                 command = ToCommand(Console.ReadLine().Trim());
 
                 string outputString;
@@ -64,24 +64,35 @@ namespace Zork
 
             switch (command)
             {
-                case Commands.North:
-                case Commands.South:
+                case Commands.North when Location.Row < 2: //Don't keep '2', magic number
+                    Location.Row++;
+                    didMove = true;
                     break;
 
-                case Commands.East when _currentRoom < _rooms.Length - 1:
-                    _currentRoom++;
+                case Commands.South when Location.Row > 0:
+                    Location.Row--;
+                    didMove = true;
+                    break;
+
+                case Commands.East when Location.Column < 2: //Don't keep '2', magic number
+                    Location.Column++;
                     didMove = true;       
                     break;
 
-                case Commands.West when _currentRoom > 0:
-                    _currentRoom--;
+                case Commands.West when Location.Column > 0:
+                    Location.Column--;
                     didMove = true;
                     break;
             }
 
             return didMove;
         }
-        private static readonly string[] _rooms = { "Forest", "West of House", "Behind House", "Clearing", "Canyon View" };
-        private static int _currentRoom = 1;
+        private static readonly string[,] _rooms = {
+            {"Rocky Trail", "South of House", "Canyon View" },
+            {"Forest", "West of House", "Behind House" },
+            {"Dense Woods", "North of House", "Canyon" }
+        };
+
+        private static (int Row, int Column) Location = (1, 1);
     }
 }
