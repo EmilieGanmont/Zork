@@ -5,7 +5,7 @@ namespace Zork
 {
     class Program
     {
-        private static string CurrentRoom
+        private static Room CurrentRoom
         {
             get
             {
@@ -35,7 +35,7 @@ namespace Zork
                         break;
 
                     case Commands.Look:
-                        outputString = "This is an open field west of a white house, with a boarded front door. \nA rubber mat saying 'Welcome to Zork!' lies by the door.";
+                        outputString = CurrentRoom.Description;
                         break;
 
                     case Commands.North:
@@ -96,10 +96,26 @@ namespace Zork
 
             return didMove;
         }
-        private static readonly string[,] _rooms = {
-            {"Rocky Trail", "South of House", "Canyon View" },
-            {"Forest", "West of House", "Behind House" },
-            {"Dense Woods", "North of House", "Clearing" }
+
+        private static void InitializeRoomDescription()
+        {
+            _rooms[0, 0].Description = "Rock";
+            _rooms[0, 1].Description = "South side";
+            _rooms[0, 2].Description = "Canyon";
+
+            _rooms[1, 0].Description = "a";
+            _rooms[1, 1].Description = "a";
+            _rooms[1, 2].Description = "a";
+
+            _rooms[2, 0].Description = "a";
+            _rooms[2, 1].Description = "a";
+            _rooms[2, 2].Description = "a";
+        }
+
+        private static readonly Room[,] _rooms = {
+            {new Room("Rocky Trail"), new Room("South of House"), new Room("Canyon View") },
+            {new Room("Forest"), new Room("West of House"), new Room("Behind House") },
+            {new Room("Dense Woods"), new Room("North of House"), new Room("Clearing") }
         };
 
         private static (int Row, int Column) _location = (1, 1);
