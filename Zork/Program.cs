@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace Zork
 {
@@ -12,7 +12,6 @@ namespace Zork
                 return _rooms[_location.Row, _location.Column];
             }
         }
-
 
         static void Main(string[] args)
         {
@@ -69,6 +68,8 @@ namespace Zork
 
         private static bool Move(Commands command)
         {
+            Assert.IsTrue(IsDirection(command), "Invalid direction");
+
             bool didMove = false;
 
             switch (command)
@@ -96,10 +97,22 @@ namespace Zork
 
             return didMove;
         }
+
+        private static bool IsDirection(Commands command) => Directions.Contains(command);
+
         private static readonly string[,] _rooms = {
             {"Rocky Trail", "South of House", "Canyon View" },
             {"Forest", "West of House", "Behind House" },
             {"Dense Woods", "North of House", "Clearing" }
+        };
+
+
+        private static readonly List<Commands> Directions = new List<Commands>
+        {
+            Commands.North,
+            Commands.South,
+            Commands.East,
+            Commands.West
         };
 
         private static (int Row, int Column) _location = (1, 1);
