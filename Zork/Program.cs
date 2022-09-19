@@ -18,12 +18,20 @@ namespace Zork
             Console.WriteLine("Welcome to Zork!");
             InitializeRoomDescription();
 
+            Room previousRoom = null;
             Commands command = Commands.Unknown;
             bool isRunning = true;
-
             while (isRunning)
             {
-                Console.Write($"{CurrentRoom}\n> ");
+                Console.WriteLine(CurrentRoom);
+                if(previousRoom != CurrentRoom && CurrentRoom.HasBeenVisited == false)
+                {
+                    Console.WriteLine(CurrentRoom.Description);
+                    previousRoom = CurrentRoom;
+                    CurrentRoom.HasBeenVisited = true;
+                }
+                Console.Write("> ");
+
                 command = ToCommand(Console.ReadLine().Trim());
 
                 string outputString;
