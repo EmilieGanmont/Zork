@@ -1,4 +1,4 @@
-﻿Rocky Trail##You are on a rock strewn trail.
+﻿Rocky Trail##You are on a rock-strewn trail.
 South of House##You are facing the south side of a white house. There is no door here, and all the windows are barred.
 Canyon View##You are at the top of the Great Canyon on its south wall.
 Forest##This is a forest, with trees in all directions around you.
