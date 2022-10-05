@@ -7,7 +7,7 @@ namespace Zork
 {
     public class Room : IEquatable<Room>
     {   
-        [JsonProperty(Order =1)]
+        [JsonProperty(Order = 1)]
         public string Name { get; private set; }
 
         [JsonProperty(Order = 2)]
