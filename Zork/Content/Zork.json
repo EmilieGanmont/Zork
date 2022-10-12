@@ -16,7 +16,7 @@
                 "Description": "You are facing the north side of a white house. There is no door here, and all the windows are barred.",
                 "Neighbors": {
                     "North": "Forest 2",
-                    "South": "Behind House",
+                    "East": "Behind House",
                     "West": "West of House"
                 }
             },
@@ -48,7 +48,7 @@
             },
             {
                 "Name": "Forest 2",
-                "Descriptions": "This is a dimly lit forest, with large trees all around. One particularly large tree with some low branches stands here.",
+                "Description": "This is a dimly lit forest, with large trees all around. One particularly large tree with some low branches stands here.",
                 "Neighbors": {
                     "South": "Clearing",
                     "East": "Clearing"
@@ -66,8 +66,8 @@
                 "Name": "Clearing",
                 "Description": "You are in a clearing, with a forest surrounding you on the west and south.",
                 "Neighbors": {
-                    "North": "Forest 2",
-                    "East": "Forest 3"
+                    "West": "Forest 2",
+                    "South": "Forest 3"
                 }
             }
         ]
