@@ -1,15 +1,30 @@
 ﻿{
     "World": {
-        "StartingLocation": "West of House",
+      "StartingLocation": "West of House",
+        "Items": [
+        {
+          "Name": "Welcome Mat",
+          "Description": "A rubber mat with the words 'Welcome to Zork!' written on it."
+        },
+        {
+          "Name": "Mailbox",
+          "Description": "A small mailbox"
+        }
+      ],
         "Rooms": [
             {
                 "Name": "West of House",
                 "Description": "This is an open field west of a white house, with a boarded front door.",
-                "Neighbors": {
-                    "North": "North of House",
-                    "South": "South of House",
-                    "West": "Forest 1"
-                }
+              "Neighbors": {
+                "North": "North of House",
+                "South": "South of House",
+                "West": "Forest 1"
+              },
+              "Inventory": [
+                "Welcome Mat",
+                "Mailbox"
+              ]
+
             },
             {
                 "Name": "North of House",
