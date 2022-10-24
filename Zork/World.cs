@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using System;
 
 namespace Zork
 {
@@ -17,7 +18,7 @@ namespace Zork
         public World(Item[] items)
         {
             Items = items;
-
+            ItemsByName = new Dictionary<string, Item>(StringComparer.OrdinalIgnoreCase);
             foreach (Item item in Items)
             {
                 ItemsByName.Add(item.Name, item);

@@ -3,7 +3,10 @@
       "StartingLocation": "West of House",
         "Items": [
         {
-          "Name": "Welcome Mat",
+            "Name": "Mat",
+            "Aliases": [
+                "Mat"
+            ],
           "Description": "A rubber mat with the words 'Welcome to Zork!' written on it."
         },
         {
@@ -21,7 +24,7 @@
                 "West": "Forest 1"
               },
               "InventoryNames": [
-                "Welcome Mat",
+                "Mat",
                 "Mailbox"
               ]
             },

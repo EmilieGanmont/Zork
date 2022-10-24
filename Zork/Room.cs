@@ -19,6 +19,8 @@ namespace Zork
         [JsonIgnore]
         public IReadOnlyDictionary<Directions, Room> Neighbors { get; private set; }
 
+        public List<Item> Items { get; }
+
         [JsonIgnore]
         public List<Item> Inventory { get; private set; }
 

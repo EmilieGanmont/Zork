@@ -25,10 +25,16 @@ namespace Zork
 
         public List<Item> Inventory { get; }
 
+        [JsonIgnore]
+        public Dictionary<string, Item> ItemsByName { get; }
+
         public Player(World world, string startingLocation)
         {
             World = world;
             LocationName = startingLocation;
+
+
+            Inventory = new List<Item>();
         }
 
         public bool Move(Directions direction)
