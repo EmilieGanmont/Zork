@@ -11,6 +11,7 @@ namespace Zork
 
         public Item[] Items { get; }
 
+        [JsonIgnore]
         public Dictionary<string, Item> ItemsByName { get; }
 
         public World(Item[] items)
@@ -19,7 +20,7 @@ namespace Zork
 
             foreach (Item item in Items)
             {
-
+                ItemsByName.Add(item.Name, item);
             }
         }
 
@@ -36,6 +37,7 @@ namespace Zork
             foreach(Room room in Rooms)
             {
                 room.UpdateNeighbors(this);
+                room.UpdateInventory(this);
             }
         }
 

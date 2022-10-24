@@ -20,11 +20,10 @@
                 "South": "South of House",
                 "West": "Forest 1"
               },
-              "Inventory": [
+              "InventoryNames": [
                 "Welcome Mat",
                 "Mailbox"
               ]
-
             },
             {
                 "Name": "North of House",

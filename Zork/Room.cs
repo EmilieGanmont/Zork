@@ -23,7 +23,7 @@ namespace Zork
         public List<Item> Inventory { get; private set; }
 
         [JsonProperty]
-        private string[] InventoryNames { get; }
+        private string[] InventoryNames { get; set;  }
 
         public Room(List<Item> inventory)
         {   
@@ -69,6 +69,8 @@ namespace Zork
             {
                 Inventory.Add(world.ItemsByName[inventoryName]);
             }
+
+            InventoryNames = null;
         }
     }
 }
