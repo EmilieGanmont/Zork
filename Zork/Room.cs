@@ -19,18 +19,18 @@ namespace Zork
         [JsonIgnore]
         public IReadOnlyDictionary<Directions, Room> Neighbors { get; private set; }
 
-        public List<Item> Items { get; }
+        //public List<Item> Items { get; }
 
         [JsonIgnore]
         public List<Item> Inventory { get; private set; }
 
         [JsonProperty]
-        private string[] InventoryNames { get; set;  }
+        private string[] InventoryNames { get; set; }
 
         public Room(List<Item> inventory)
         {   
             Inventory = inventory ?? new List<Item>();
-            InventoryNames = InventoryNames ?? new string[0];
+            InventoryNames = InventoryNames ?? new string[0]; //Double check this pls may be bugged
         }
 
         public static bool operator ==(Room lhs, Room rhs)

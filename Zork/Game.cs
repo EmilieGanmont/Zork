@@ -31,10 +31,29 @@ namespace Zork
                 {
                     Console.WriteLine(Player.Location.Description);
                     previousRoom = Player.Location;
+                    ShowItems();
+
                 }
 
                 Console.Write("\n> ");
-                Commands command = ToCommand(Console.ReadLine().Trim());
+
+                string inputString = Console.ReadLine().Trim();
+                const char seperator = ' ';
+                string[] commandTokens = inputString.Split(seperator);
+
+                string verb = null;
+                string subject = null;
+
+                if(commandTokens.Length == 0)
+                {
+                    continue;
+                }
+                else if(commandTokens.Length == 1)
+                {
+                    //Insert code here
+                }
+
+                Commands command = ToCommand(inputString);
 
                 switch (command)
                 {
@@ -44,6 +63,7 @@ namespace Zork
 
                     case Commands.Look:
                         Console.WriteLine(Player.Location.Description);
+                        ShowItems();
                         break;
 
                     case Commands.North:
@@ -55,6 +75,23 @@ namespace Zork
                         {
                             Console.WriteLine("The way is shut!");
                         }
+                        break;
+                    case Commands.Inventory:
+                        if(Player.Inventory.Count <= 0 )
+                        {
+                            Console.WriteLine("You are empty handed.");
+                            Console.Write("\n> ");
+                        }
+                        else if(Player.Inventory.Count > 0)
+                        {
+                            foreach(Item i in Player.Inventory)
+                            {
+                                Console.WriteLine(i.Description);
+                                Console.Write("\n> ");
+                            }
+                        }
+                        break;
+                    case Commands.Take:
                         break;
 
                     default:
@@ -72,5 +109,14 @@ namespace Zork
         }
 
         private static Commands ToCommand(string commandString) => Enum.TryParse(commandString, true, out Commands result) ? result : Commands.Unknown;
+
+        private void ShowItems()
+        {
+            foreach (Item i in Player.Location.Inventory)
+            {
+                Console.WriteLine(i.Description);
+            }
+        }
+
     }
 }

@@ -8,6 +8,9 @@
         South,
         East,
         West,
+        Take,
+        Drop,
+        Inventory,
         Unknown
     }
 
