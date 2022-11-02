@@ -26,7 +26,7 @@ namespace Zork
             Room previousRoom = null;
             while (IsRunning)
             {
-                Console.Write(Player.Location);
+                Console.WriteLine(Player.Location);
                 if (previousRoom != Player.Location)
                 {
                     Console.WriteLine(Player.Location.Description);
@@ -61,6 +61,11 @@ namespace Zork
 
                         command = ToCommand(verb);
                         break;
+
+                    default:
+                        Console.WriteLine("Try a simpler command.");
+                        Console.Write("\n");
+                        continue;
 
                 }
 
@@ -102,9 +107,10 @@ namespace Zork
                     case Commands.Take:
                         if (subject != null)
                         {
+                            subject.ToLower();
                             foreach (Item i in Player.Location.Inventory)
                             {
-                                if (subject.Equals(i.Name))
+                                if (subject.Equals(i.Name.ToLower()))
                                 {
                                     Player.Inventory.Add(i);
                                     Player.Location.Inventory.Remove(i);
@@ -112,7 +118,7 @@ namespace Zork
                                     Console.WriteLine("Taken.");
                                     break;
                                 }
-                                else if(subject.Equals(i.Name) != true)
+                                else if (subject.Equals(i.Name) != true)
                                 {
                                     Console.WriteLine("There is no such thing");
                                     break;
@@ -139,7 +145,7 @@ namespace Zork
                                     Console.Write("\n> ");
                                     break;
                                 }
-                                else if(subject.Equals(i.Name) == false)
+                                else if (subject.Equals(i.Name) == false)
                                 {
                                     Console.WriteLine("You don't have that thing");
                                     break;
@@ -152,7 +158,7 @@ namespace Zork
                             break;
                         }
 
-                        if(Player.Inventory.Count == 0 )
+                        if (Player.Inventory.Count == 0)
                         {
                             Console.WriteLine("You don't have that thing.");
                         }
