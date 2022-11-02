@@ -92,9 +92,10 @@ namespace Zork
                         }
                         else if (Player.Inventory.Count > 0)
                         {
+                            Console.WriteLine("You are carrying:");
                             foreach (Item i in Player.Inventory)
                             {
-                                Console.WriteLine(i.Description);
+                                Console.WriteLine($"A {i.Name.ToLower()}");
                             }
                         }
                         break;
