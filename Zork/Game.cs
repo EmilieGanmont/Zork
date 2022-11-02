@@ -26,7 +26,7 @@ namespace Zork
             Room previousRoom = null;
             while (IsRunning)
             {
-                Console.WriteLine(Player.Location);
+                Console.Write(Player.Location);
                 if (previousRoom != Player.Location)
                 {
                     Console.WriteLine(Player.Location.Description);
@@ -89,14 +89,12 @@ namespace Zork
                         if (Player.Inventory.Count <= 0)
                         {
                             Console.WriteLine("You are empty handed.");
-                            Console.Write("\n> ");
                         }
                         else if (Player.Inventory.Count > 0)
                         {
                             foreach (Item i in Player.Inventory)
                             {
                                 Console.WriteLine(i.Description);
-                                Console.Write("\n> ");
                             }
                         }
                         break;
@@ -137,6 +135,7 @@ namespace Zork
                                     Player.Location.Inventory.Add(i);
 
                                     Console.WriteLine("Dropped.");
+                                    Console.Write("\n> ");
                                     break;
                                 }
                                 else if(subject.Equals(i.Name) == false)
@@ -149,12 +148,13 @@ namespace Zork
                         else if (subject == null)
                         {
                             Console.WriteLine("Drop what?");
+                            break;
                         }
 
-                            if(Player.Inventory.Count == 0 )
-                            {
-                                Console.WriteLine("You don't have that thing.");
-                            }
+                        if(Player.Inventory.Count == 0 )
+                        {
+                            Console.WriteLine("You don't have that thing.");
+                        }
                         break;
 
                     default:
@@ -162,6 +162,8 @@ namespace Zork
                         break;
 
                 }
+
+                Console.Write("\n");
             }
         }
 

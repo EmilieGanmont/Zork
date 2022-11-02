@@ -32,8 +32,6 @@ namespace Zork
         {
             World = world;
             LocationName = startingLocation;
-
-
             Inventory = new List<Item>();
         }
 
