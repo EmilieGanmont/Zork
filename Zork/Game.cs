@@ -34,7 +34,7 @@ namespace Zork
                     ShowItems();
                 }
 
-                Console.Write("\n> ");
+                Console.Write("> ");
 
                 string inputString = Console.ReadLine().Trim();
                 const char seperator = ' ';
@@ -105,6 +105,8 @@ namespace Zork
                         }
                         break;
                     case Commands.Take:
+                        Item itemToTake = null;
+                        
                         if (subject != null)
                         {
                             subject.ToLower();
@@ -112,22 +114,26 @@ namespace Zork
                             {
                                 if (subject.Equals(i.Name.ToLower()))
                                 {
-                                    Player.Inventory.Add(i);
-                                    Player.Location.Inventory.Remove(i);
-
-                                    Console.WriteLine("Taken.");
-                                    break;
-                                }
-                                else if (subject.Equals(i.Name) != true)
-                                {
-                                    Console.WriteLine("There is no such thing");
-                                    break;
+                                   itemToTake = i;
+                                   break;
                                 }
                             }
                         }
-                        else if (subject == null)
+                        else
                         {
                             Console.WriteLine("Take what?");
+                        }
+
+                        if(itemToTake != null)
+                        {
+                            Player.Location.Inventory.Remove(itemToTake);
+                            Player.Inventory.Add(itemToTake);
+
+                            Console.WriteLine("Taken.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("There is no such thing.");
                         }
                         break;
 
@@ -136,13 +142,12 @@ namespace Zork
                         {
                             foreach (Item i in Player.Inventory)
                             {
-                                if (subject.Equals(i.Name))
+                                if (subject.Equals(i.Name.ToLower()))
                                 {
                                     Player.Inventory.Remove(i);
                                     Player.Location.Inventory.Add(i);
 
                                     Console.WriteLine("Dropped.");
-                                    Console.Write("\n> ");
                                     break;
                                 }
                                 else if (subject.Equals(i.Name) == false)
