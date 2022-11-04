@@ -90,6 +90,7 @@ namespace Zork
                             Console.WriteLine("The way is shut!");
                         }
                         break;
+
                     case Commands.Inventory:
                         if (Player.Inventory.Count <= 0)
                         {
@@ -104,27 +105,27 @@ namespace Zork
                             }
                         }
                         break;
+
                     case Commands.Take:
                         Item itemToTake = null;
-                        
                         if (subject != null)
                         {
-                            subject.ToLower();
                             foreach (Item i in Player.Location.Inventory)
                             {
-                                if (subject.Equals(i.Name.ToLower()))
+                                if (string.Compare(subject, i.Name, ignoreCase: true) == 0)
                                 {
-                                   itemToTake = i;
-                                   break;
+                                    itemToTake = i;
+                                    break;
                                 }
                             }
                         }
                         else
                         {
-                            Console.WriteLine("Take what?");
+                            Console.WriteLine("What do you want to take?");
+                            break;
                         }
 
-                        if(itemToTake != null)
+                        if (itemToTake != null)
                         {
                             Player.Location.Inventory.Remove(itemToTake);
                             Player.Inventory.Add(itemToTake);
@@ -138,41 +139,40 @@ namespace Zork
                         break;
 
                     case Commands.Drop:
+                        Item itemToDrop = null;
                         if (subject != null)
                         {
                             foreach (Item i in Player.Inventory)
                             {
-                                if (subject.Equals(i.Name.ToLower()))
+                                if (string.Compare(subject, i.Name, ignoreCase: true) == 0)
                                 {
-                                    Player.Inventory.Remove(i);
-                                    Player.Location.Inventory.Add(i);
-
-                                    Console.WriteLine("Dropped.");
-                                    break;
-                                }
-                                else if (subject.Equals(i.Name) == false)
-                                {
-                                    Console.WriteLine("You don't have that thing");
+                                    itemToDrop = i;
                                     break;
                                 }
                             }
                         }
-                        else if (subject == null)
+                        else
                         {
-                            Console.WriteLine("Drop what?");
+                            Console.WriteLine("What do you want to drop?");
                             break;
                         }
 
-                        if (Player.Inventory.Count == 0)
+                        if (itemToDrop != null)
                         {
-                            Console.WriteLine("You don't have that thing.");
+                            Player.Inventory.Remove(itemToDrop);
+                            Player.Location.Inventory.Add(itemToDrop);
+
+                            Console.WriteLine("Dropped.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("You don't have that thing");
                         }
                         break;
 
                     default:
                         Console.WriteLine("Unknown command");
                         break;
-
                 }
 
                 Console.Write("\n");
