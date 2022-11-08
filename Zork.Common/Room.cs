@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace Zork
+namespace Zork.Common
 {
     public class Room : IEquatable<Room>
     {   

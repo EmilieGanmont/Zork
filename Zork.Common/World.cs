@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using System;
 
-namespace Zork
+namespace Zork.Common
 {
     public class World
     {

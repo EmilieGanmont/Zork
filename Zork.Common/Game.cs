@@ -2,7 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace Zork
+namespace Zork.Common
 {
     public class Game
     {
@@ -10,6 +10,8 @@ namespace Zork
 
         [JsonIgnore]
         public Player Player { get; private set; }
+
+        public IOutputService Output { get; private set; }
 
         [JsonIgnore]
         public bool IsRunning { get; set; }
@@ -20,21 +22,23 @@ namespace Zork
             Player = player;
         }
 
-        public void Run()
+        public void Run(IOutputService output)
         {
+            Output = output;
+
             IsRunning = true;
             Room previousRoom = null;
             while (IsRunning)
             {
-                Console.WriteLine(Player.Location);
+                Output.WriteLine(Player.Location);
                 if (previousRoom != Player.Location)
                 {
-                    Console.WriteLine(Player.Location.Description);
+                    Output.WriteLine(Player.Location.Description);
                     previousRoom = Player.Location;
                     ShowItems();
                 }
 
-                Console.Write("> ");
+                Output.Write("> ");
 
                 string inputString = Console.ReadLine().Trim();
                 const char seperator = ' ';
@@ -63,8 +67,8 @@ namespace Zork
                         break;
 
                     default:
-                        Console.WriteLine("Try a simpler command.");
-                        Console.Write("\n");
+                        Output.WriteLine("Try a simpler command.");
+                        Output.Write("\n");
                         continue;
 
                 }
@@ -76,7 +80,7 @@ namespace Zork
                         break;
 
                     case Commands.Look:
-                        Console.WriteLine(Player.Location.Description);
+                        Output.WriteLine(Player.Location.Description);
                         ShowItems();
                         break;
 
@@ -87,21 +91,21 @@ namespace Zork
                         Directions direction = Enum.Parse<Directions>(command.ToString(), true);
                         if (Player.Move(direction) == false)
                         {
-                            Console.WriteLine("The way is shut!");
+                            Output.WriteLine("The way is shut!");
                         }
                         break;
 
                     case Commands.Inventory:
                         if (Player.Inventory.Count <= 0)
                         {
-                            Console.WriteLine("You are empty handed.");
+                            Output.WriteLine("You are empty handed.");
                         }
                         else if (Player.Inventory.Count > 0)
                         {
-                            Console.WriteLine("You are carrying:");
+                            Output.WriteLine("You are carrying:");
                             foreach (Item i in Player.Inventory)
                             {
-                                Console.WriteLine($"A {i.Name.ToLower()}");
+                                Output.WriteLine($"A {i.Name.ToLower()}");
                             }
                         }
                         break;
@@ -121,7 +125,7 @@ namespace Zork
                         }
                         else
                         {
-                            Console.WriteLine("What do you want to take?");
+                            Output.WriteLine("What do you want to take?");
                             break;
                         }
 
@@ -130,11 +134,11 @@ namespace Zork
                             Player.Location.Inventory.Remove(itemToTake);
                             Player.Inventory.Add(itemToTake);
 
-                            Console.WriteLine("Taken.");
+                            Output.WriteLine("Taken.");
                         }
                         else
                         {
-                            Console.WriteLine("There is no such thing.");
+                            Output.WriteLine("There is no such thing.");
                         }
                         break;
 
@@ -153,7 +157,7 @@ namespace Zork
                         }
                         else
                         {
-                            Console.WriteLine("What do you want to drop?");
+                            Output.WriteLine("What do you want to drop?");
                             break;
                         }
 
@@ -162,20 +166,20 @@ namespace Zork
                             Player.Inventory.Remove(itemToDrop);
                             Player.Location.Inventory.Add(itemToDrop);
 
-                            Console.WriteLine("Dropped.");
+                            Output.WriteLine("Dropped.");
                         }
                         else
                         {
-                            Console.WriteLine("You don't have that thing");
+                            Output.WriteLine("You don't have that thing");
                         }
                         break;
 
                     default:
-                        Console.WriteLine("Unknown command");
+                        Output.WriteLine("Unknown command");
                         break;
                 }
 
-                Console.Write("\n");
+                Output.Write("\n");
             }
         }
 
@@ -192,7 +196,7 @@ namespace Zork
         {
             foreach (Item i in Player.Location.Inventory)
             {
-                Console.WriteLine(i.Description);
+                Output.WriteLine(i.Description);
             }
         }
 
