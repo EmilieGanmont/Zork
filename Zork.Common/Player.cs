@@ -1,19 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Zork.Common
 {
     public class Player
     {
+        public event EventHandler<int> MovesChanged;
+        private int _moves;
+
         public World World { get; }
 
         [JsonIgnore]
-        public Room Location { get; private set;}
+        public Room Location { get; private set; }
 
         [JsonIgnore]
         public string LocationName
         {
-            get 
+            get
             {
                 return Location?.Name;
             }
@@ -24,6 +28,23 @@ namespace Zork.Common
         }
 
         public List<Item> Inventory { get; }
+
+        public int Moves
+        {
+            get
+            {
+                return _moves;
+            }
+
+            set
+            {
+                if(_moves !=value)
+                {
+                    _moves = value;
+                    MovesChanged?.Invoke(this, _moves);
+                }
+            }
+        }
 
         [JsonIgnore]
         public Dictionary<string, Item> ItemsByName { get; }
@@ -38,7 +59,7 @@ namespace Zork.Common
         public bool Move(Directions direction)
         {
             bool isValidMove = Location.Neighbors.TryGetValue(direction, out Room destination);
-            if(isValidMove)
+            if (isValidMove)
             {
                 Location = destination;
             }
