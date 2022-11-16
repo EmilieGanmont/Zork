@@ -1,50 +1,50 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using System;
 
 namespace Zork.Common
 {
     public class World
     {
-        public HashSet<Room> Rooms { get; set; }
+        public Room[] Rooms { get; }
+
+        [JsonIgnore]
+        public IReadOnlyDictionary<string, Room> RoomsByName => _roomsByName;
 
         public Item[] Items { get; }
 
         [JsonIgnore]
-        public Dictionary<string, Item> ItemsByName { get; }
+        public IReadOnlyDictionary<string, Item> ItemsByName => _itemsByName;
 
-        public World(Item[] items)
+        public World(Room[] rooms, Item[] items)
         {
+            Rooms = rooms;
+            _roomsByName = new Dictionary<string, Room>(StringComparer.OrdinalIgnoreCase);
+            foreach (Room room in rooms)
+            {
+                _roomsByName.Add(room.Name, room);
+            }
+
             Items = items;
-            ItemsByName = new Dictionary<string, Item>(StringComparer.OrdinalIgnoreCase);
+            _itemsByName = new Dictionary<string, Item>(StringComparer.OrdinalIgnoreCase);
             foreach (Item item in Items)
             {
-                ItemsByName.Add(item.Name, item);
+                _itemsByName.Add(item.Name, item);
             }
         }
 
-        [JsonIgnore]
-        public IReadOnlyDictionary<string, Room> RoomsByName => mRoomsByName;
-
-        public Player SpawnPlayer() => new Player(this, StartingLocation);
-
         [OnDeserialized]
-        private void OnDeserialized(StreamingContext context)
+        private void OnDeserialized(StreamingContext streamingContext)
         {
-            mRoomsByName = Rooms.ToDictionary(room => room.Name, room => room);
-
-            foreach(Room room in Rooms)
+            foreach (Room room in Rooms)
             {
                 room.UpdateNeighbors(this);
                 room.UpdateInventory(this);
             }
         }
 
-        [JsonProperty]
-        private string StartingLocation { get; set; }
-
-        private Dictionary<string, Room> mRoomsByName;
+        private readonly Dictionary<string, Room> _roomsByName;
+        private readonly Dictionary<string, Item> _itemsByName;
     }
 }

@@ -3,7 +3,7 @@ using Zork.Common;
 
 namespace Zork.Cli
 {
-    internal class ConsoleOutputService: IOutputService
+    internal class ConsoleOutputService : IOutputService
     {
         public void Write(object obj)
         {

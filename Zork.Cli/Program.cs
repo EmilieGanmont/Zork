@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.IO;
+using Newtonsoft.Json;
 using Zork.Common;
 
 namespace Zork.Cli
@@ -7,35 +8,21 @@ namespace Zork.Cli
     {
         static void Main(string[] args)
         {
-            const string defaultGameFilename = @"Content/Zork.json";
+            const string defaultGameFilename = @"Content\Game.json";
             string gameFilename = (args.Length > 0 ? args[(int)CommandLineArguments.GameFilename] : defaultGameFilename);
-            Game game = Game.Load(gameFilename);
+            Game game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(gameFilename));
 
             var output = new ConsoleOutputService();
             var input = new ConsoleInputService();
-
-            Console.WriteLine("Welcome to Zork!");
             game.Run(input, output);
 
-            //game.Player.MovesChanged += Player_MovesChanged;
-
-            while(game.IsRunning)
+            while (game.IsRunning)
             {
                 game.Output.Write("> ");
                 input.ProcessInput();
             }
 
-            game.Output.WriteLine("Thank you for playing!");
-        }
-
-       //private static void Player_MovesChanged(object sender, int moves)
-       //{
-       //    game.Output.WriteLine($"You've made {moves} moves.");
-       //}
-
-        private static void Input_InputReceived(object sender, string inputString)
-        {
-            Console.WriteLine(inputString);
+            output.WriteLine("Thank you for playing!");
         }
 
         private enum CommandLineArguments
