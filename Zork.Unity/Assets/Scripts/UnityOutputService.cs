@@ -41,13 +41,21 @@ public class UnityOutputService : MonoBehaviour, IOutputService
 
     public void ParseWriteLine(string message)
     {
+
         var textLine = Instantiate(TextLinePrefab, ContentTransform);
         textLine.text = message;
-        _entries.Enqueue(textLine.gameObject);
 
-        if(_entries.Count >= MaxEntries)
+        var newLine = Instantiate(NewLinePrefab, ContentTransform);
+
+        _entries.Enqueue(textLine.gameObject);
+        _entries.Enqueue(newLine.gameObject);
+
+        if (_entries.Count >= MaxEntries)
         {
-            _entries.Dequeue();
+            while(_entries.Count >= MaxEntries)
+            {
+                Destroy(_entries.Dequeue());
+            }
         }
     }
 
