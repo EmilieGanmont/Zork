@@ -54,7 +54,6 @@ namespace Zork.Common
             }
         }
 
-
         public IEnumerable<Item> Inventory => _inventory;
 
         public Player(World world, string startingLocation)
@@ -67,6 +66,7 @@ namespace Zork.Common
             }
 
             _inventory = new List<Item>();
+   
         }
 
         public bool Move(Directions direction)
@@ -99,6 +99,7 @@ namespace Zork.Common
         }
 
         private readonly World _world;
+        private Item _startingWeapon;
         private Room _currentRoom;
         private int _moves;
         private int _score;

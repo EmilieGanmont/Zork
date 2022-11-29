@@ -1,29 +1,61 @@
 ﻿{
     "World": {
-      "StartingLocation": "West of House",
+        "StartingLocation": "West of House",
         "Items": [
-        {
-          "Name": "Mat",
-          "Description": "A rubber mat with the words 'Welcome to Zork!' written on it lies here."
-        },
-        {
-          "Name": "Mailbox",
-          "Description": "There is a small mailbox here."
-        }
-      ],
+            {
+                "Name": "Mat",
+                "Description": "A rubber mat with the words 'Welcome to Zork!' written on it lies here.",
+                "IsValuable": true
+            },
+            {
+                "Name": "Mailbox",
+                "Description": "There is a small mailbox here.",
+                "IsValuable": false
+            },
+            {
+                "Name": "Sword",
+                "Description": "An Elvish sword of great antiquity lies here.",
+                "IsValuable": true
+            },
+            {
+                "Name": "Egg",
+                "Description": "A jewel encrusted egg lies here.",
+                "IsValuable": true
+            },
+            {
+                "Name": "Leaves",
+                "Description": "There is a small pile of leaves here.",
+                "IsValuable": false
+            },
+            {
+                "Name": "Zork",
+                "Description": "A disk with the game Zork lies here.",
+                "IsValuable": true
+            },
+            {
+                "Name": "Stiletto",
+                "Description": "A sharp stiletto lies here.",
+                "IsValuable": true
+            },
+            {
+                "Name": "Zork",
+                "Description": "A disk with the game Zork lies here.",
+                "IsValuable": true
+            }
+        ],
         "Rooms": [
             {
-              "Name": "West of House",
-              "Description": "This is an open field west of a white house, with a boarded front door.",
-              "Neighbors": {
-                "North": "North of House",
-                "South": "South of House",
-                "West": "Forest 1"
-              },
-              "InventoryNames": [
-                "Mat",
-                "Mailbox"
-              ]
+                "Name": "West of House",
+                "Description": "This is an open field west of a white house, with a boarded front door.",
+                "Neighbors": {
+                    "North": "North of House",
+                    "South": "South of House",
+                    "West": "Forest 1"
+                },
+                "InventoryNames": [
+                    "Mat",
+                    "Mailbox"
+                ]
             },
             {
                 "Name": "North of House",

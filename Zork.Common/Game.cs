@@ -12,6 +12,9 @@ namespace Zork.Common
         public Player Player { get; }
 
         [JsonIgnore]
+        public Thief Thief { get; }
+
+        [JsonIgnore]
         public IInputService Input { get; private set; }
 
         [JsonIgnore]
@@ -24,6 +27,7 @@ namespace Zork.Common
         {
             World = world;
             Player = new Player(World, startingLocation);
+            Thief = new Thief(World);
         }
 
         public void Run(IInputService input, IOutputService output)
@@ -36,6 +40,7 @@ namespace Zork.Common
             Output.WriteLine("Welcome to Zork!");
             Look();
             Console.WriteLine($"\n{Player.CurrentRoom}");
+            Console.WriteLine($"Thief says hi from {Thief.CurrentRoom}");
         }
 
         public void OnInputReceived(object sender, string inputString)
@@ -78,6 +83,8 @@ namespace Zork.Common
                 case Commands.West:
                     Directions direction = (Directions)command;
                     Output.WriteLine(Player.Move(direction) ? $"You moved {direction}." : "The way is shut!");
+                    Thief.ChangeRoom();
+                    Console.WriteLine($"Thief says hi from {Thief.CurrentRoom}");
                     break;
 
                 case Commands.Take:
@@ -142,6 +149,11 @@ namespace Zork.Common
                 Look();
             }
 
+            if(Player.CurrentRoom == Thief.CurrentRoom)
+            {
+                ThiefStoleItem();
+            }
+
            Console.WriteLine($"\n{Player.CurrentRoom}");
         }
         
@@ -166,6 +178,33 @@ namespace Zork.Common
                 Player.AddItemToInventory(itemToTake);
                 Player.CurrentRoom.RemoveItemFromInventory(itemToTake);
                 Output.WriteLine("Taken.");
+            }
+        }
+
+        private void ThiefStoleItem()
+        {
+            Random rnd = new Random();
+            int rndItem = rnd.Next(Player.CurrentRoom.Inventory.Count());
+            Item itemToTake = null;
+
+           // if (rndItem >= 0)
+            //{
+                if(Player.CurrentRoom.Inventory.Count() != 0)
+                {
+                    itemToTake = Player.CurrentRoom.Inventory.ElementAt(rndItem);
+                }
+
+            //}
+
+            if (itemToTake == null)
+            {
+                Output.WriteLine($"The thief tried to take something, but it doesn't exist.");
+            }
+            else 
+            {
+                Thief.AddItemToInventory(itemToTake);
+                Player.CurrentRoom.RemoveItemFromInventory(itemToTake);
+                Output.WriteLine($"{itemToTake.Name} seems missing...");
             }
         }
 
