@@ -4,12 +4,12 @@
         "Items": [
             {
                 "Name": "Mat",
-                "Description": "A rubber mat with the words 'Welcome to Zork!' written on it lies here.",
+                "LookDescription": "A rubber mat with the words 'Welcome to Zork!' written on it lies here.",
                 "IsValuable": true
             },
             {
                 "Name": "Mailbox",
-                "Description": "There is a small mailbox here.",
+                "LookDescription": "There is a small mailbox here.",
                 "IsValuable": false
             },
             {

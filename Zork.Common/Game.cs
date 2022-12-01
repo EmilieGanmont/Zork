@@ -119,7 +119,7 @@ namespace Zork.Common
                         Output.WriteLine("You are carrying:");
                         foreach (Item item in Player.Inventory)
                         {
-                            Output.WriteLine(item.InventoryDescription);
+                            Output.WriteLine(item.Name);
                         }
                     }
                     break;
