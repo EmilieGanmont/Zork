@@ -1,6 +1,6 @@
 ﻿{
+    "StartingLocation": "West of House",
     "World": {
-        "StartingLocation": "West of House",
         "Items": [
             {
                 "Name": "Mat",
@@ -28,17 +28,12 @@
                 "IsValuable": false
             },
             {
-                "Name": "Zork",
-                "Description": "A disk with the game Zork lies here.",
-                "IsValuable": true
-            },
-            {
                 "Name": "Stiletto",
                 "Description": "A sharp stiletto lies here.",
                 "IsValuable": true
             },
             {
-                "Name": "Zork",
+                "Name": "Lantern",
                 "Description": "A disk with the game Zork lies here.",
                 "IsValuable": true
             }

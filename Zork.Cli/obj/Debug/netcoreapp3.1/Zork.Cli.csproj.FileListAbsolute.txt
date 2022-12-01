@@ -35,3 +35,4 @@ C:\Users\missm\Documents\Zork Desktop\Zork\Zork.Cli\obj\Debug\netcoreapp3.1\Zork
 C:\Users\missm\Documents\Zork Desktop\Zork\Zork.Cli\obj\Debug\netcoreapp3.1\Zork.Cli.dll
 C:\Users\missm\Documents\Zork Desktop\Zork\Zork.Cli\obj\Debug\netcoreapp3.1\Zork.Cli.pdb
 C:\Users\missm\Documents\Zork Desktop\Zork\Zork.Cli\obj\Debug\netcoreapp3.1\Zork.Cli.genruntimeconfig.cache
+C:\Users\missm\Documents\Zork Desktop\Zork\Zork.Cli\bin\Debug\netcoreapp3.1\Content\Game.json

@@ -160,6 +160,7 @@ namespace Zork.Common
         private void Look()
         {
             Output.WriteLine(Player.CurrentRoom.Description);
+
             foreach (Item item in Player.CurrentRoom.Inventory)
             {
                 Output.WriteLine(item.LookDescription);
