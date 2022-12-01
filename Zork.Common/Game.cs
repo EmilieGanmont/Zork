@@ -23,10 +23,10 @@ namespace Zork.Common
         [JsonIgnore]
         public bool IsRunning { get; private set; }
 
-        public Game(World world, string startingLocation)
+        public Game(World world, string startingLocation, string startingWeapon)
         {
             World = world;
-            Player = new Player(World, startingLocation);
+            Player = new Player(World, startingLocation, startingWeapon);
             Thief = new Thief(World);
         }
 

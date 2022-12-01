@@ -56,7 +56,7 @@ namespace Zork.Common
 
         public IEnumerable<Item> Inventory => _inventory;
 
-        public Player(World world, string startingLocation)
+        public Player(World world, string startingLocation, string startingWeapon)
         {
             _world = world;
 
@@ -66,6 +66,12 @@ namespace Zork.Common
             }
 
             _inventory = new List<Item>();
+
+            if(_world.ItemsByName.TryGetValue(startingWeapon, out _startingWeapon) == false)
+            {
+                throw new Exception($"Invalid starting weapon: {startingWeapon}");
+            }
+            _inventory.Add(_startingWeapon);
    
         }
 

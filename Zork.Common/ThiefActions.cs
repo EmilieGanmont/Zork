@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Zork.Common
+﻿namespace Zork.Common
 {
-    class ThiefActions
+    public enum ThiefActions
     {
+        Take,
+        Drop,
+        Attack, 
+        StealFromPlayer,
+        MakePlayerDrop
     }
 }
