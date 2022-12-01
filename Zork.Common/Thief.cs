@@ -45,14 +45,14 @@ namespace Zork.Common
         
              _inventory.Add(itemToAdd);
          }
-        //
-        // public void RemoveItemFromInventory(Item itemToRemove)
-        // {
-        //     if (_inventory.Remove(itemToRemove) == false)
-        //     {
-        //         throw new Exception("Could not remove item from inventory.");
-        //     }
-        // }
+        
+        public void RemoveItemFromInventory(Item itemToRemove)
+        {
+            if (_inventory.Remove(itemToRemove) == false)
+            {
+                throw new Exception("Could not remove item from inventory.");
+            }
+        }
 
 
         private readonly World _world;

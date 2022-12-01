@@ -84,6 +84,8 @@ namespace Zork.Common
                     Directions direction = (Directions)command;
                     Output.WriteLine(Player.Move(direction) ? $"You moved {direction}." : "The way is shut!");
                     Thief.ChangeRoom();
+                    ThiefStoleItem();
+                    ThiefDropItem();
                     Console.WriteLine($"Thief says hi from {Thief.CurrentRoom}");
                     break;
 
@@ -151,7 +153,7 @@ namespace Zork.Common
 
             if(Player.CurrentRoom == Thief.CurrentRoom)
             {
-                ThiefStoleItem();
+                //ThiefStoleItem();
             }
 
            Console.WriteLine($"\n{Player.CurrentRoom}");
@@ -195,13 +197,36 @@ namespace Zork.Common
 
             if (itemToTake == null)
             {
-                Output.WriteLine($"The thief tried to take something, but it doesn't exist.");
+               // Output.WriteLine($"The thief tried to take something, but it doesn't exist.");
             }
             else 
             {
                 Thief.AddItemToInventory(itemToTake);
                 Player.CurrentRoom.RemoveItemFromInventory(itemToTake);
-                Output.WriteLine($"{itemToTake.Name} seems missing...");
+                Output.WriteLine($"{itemToTake.Name} was taken.");
+            }
+        }
+        private void ThiefDropItem()
+        {
+            Random rnd = new Random();
+            int rndItem = rnd.Next(Thief.Inventory.Count());
+            Item itemToDrop = null;
+        
+            if (Thief.Inventory.Count() != 0)
+            {
+                itemToDrop = Thief.Inventory.ElementAt(rndItem);
+            }
+        
+            if (itemToDrop == null)
+            {
+                //Output.WriteLine($"The thief tried to drop something, but it doesn't exist.");
+            }
+            else if(itemToDrop.IsValuable == false)
+            {
+                Thief.RemoveItemFromInventory(itemToDrop);
+                Thief.CurrentRoom.AddItemToInventory(itemToDrop);
+                //Output.WriteLine($"{itemToDrop.Name} was left here");
+                Output.WriteLine($"{itemToDrop.Name} was left in {Thief.CurrentRoom}");
             }
         }
 
