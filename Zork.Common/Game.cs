@@ -188,14 +188,10 @@ namespace Zork.Common
             int rndItem = rnd.Next(Player.CurrentRoom.Inventory.Count());
             Item itemToTake = null;
 
-           // if (rndItem >= 0)
-            //{
-                if(Player.CurrentRoom.Inventory.Count() != 0)
-                {
-                    itemToTake = Player.CurrentRoom.Inventory.ElementAt(rndItem);
-                }
-
-            //}
+            if(Player.CurrentRoom.Inventory.Count() != 0)
+            {
+                itemToTake = Player.CurrentRoom.Inventory.ElementAt(rndItem);
+            }
 
             if (itemToTake == null)
             {
