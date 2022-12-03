@@ -142,6 +142,7 @@ namespace Zork.Common
             }
 
             _inventory.Add(itemToAdd);
+            AddToScore(itemToAdd);
         }
 
         public void RemoveItemFromInventory(Item itemToRemove)
@@ -150,7 +151,34 @@ namespace Zork.Common
             {
                 throw new Exception("Could not remove item from inventory.");
             }
+
+            SubtractFromScore(itemToRemove);
         }
+
+        public void AddToScore(Item itemToCheck)
+        {
+            if(itemToCheck.IsValuable)
+            {
+                Score += itemToCheck.valuableScore;
+            }
+            else
+            {
+                Score++;
+            }
+        }
+
+        public void SubtractFromScore(Item itemToCheck)
+        {
+            if (itemToCheck.IsValuable)
+            {
+                Score -= itemToCheck.valuableScore;
+            }
+            else
+            {
+                Score--;
+            }
+        }
+
 
         private readonly World _world;
         private Item _startingWeapon;

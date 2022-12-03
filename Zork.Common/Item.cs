@@ -10,6 +10,8 @@
 
         public bool IsValuable { get; }
 
+        public int valuableScore = 5;
+
         public Item(string name, string lookDescription, string inventoryDescription, bool isValuable)
         {
             Name = name;

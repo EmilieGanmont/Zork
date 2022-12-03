@@ -209,7 +209,7 @@ namespace Zork.Common
             int rndItem = rnd.Next(Thief.CurrentRoom.Inventory.Count());
             Item itemToTake = null;
 
-            if (Player.CurrentRoom.Inventory.Count() != 0)
+            if (Thief.CurrentRoom.Inventory.Count() != 0)
             {
                 itemToTake = Thief.CurrentRoom.Inventory.ElementAt(rndItem);
             }
