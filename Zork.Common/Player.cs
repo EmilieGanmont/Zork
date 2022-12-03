@@ -54,9 +54,54 @@ namespace Zork.Common
             }
         }
 
+        public int MaxHealth
+        {
+            get
+            {
+                return _maxHealth;
+            }
+            private set
+            {
+                if (_maxHealth != value)
+                {
+                    _maxHealth = value;
+                }
+            }
+
+        }
+        public int CurrentHealth
+        {
+            get
+            {
+                return _currentHealth;
+            }
+            set
+            {              
+                if(_currentHealth != value)
+                {
+                    _currentHealth = value;
+                }
+            }
+    
+        }
+
+        public bool IsDead
+        {
+            get
+            {
+                return _isDead;
+            }
+            set
+            {
+                if (_currentHealth <= 0)
+                {
+                    _isDead = true;
+                }
+            }
+        }
         public IEnumerable<Item> Inventory => _inventory;
 
-        public Player(World world, string startingLocation, string startingWeapon)
+        public Player(World world, string startingLocation, string startingWeapon, int maxHealth)
         {
             _world = world;
 
@@ -72,7 +117,10 @@ namespace Zork.Common
                 throw new Exception($"Invalid starting weapon: {startingWeapon}");
             }
             _inventory.Add(_startingWeapon);
-   
+
+            _maxHealth = maxHealth;
+            _currentHealth = maxHealth;
+
         }
 
         public bool Move(Directions direction)
@@ -109,6 +157,11 @@ namespace Zork.Common
         private Room _currentRoom;
         private int _moves;
         private int _score;
+
+        private int _currentHealth;
+        private int _maxHealth;
+        private bool _isDead = false;
+
         private readonly List<Item> _inventory;
     }
 }

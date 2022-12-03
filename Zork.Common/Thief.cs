@@ -15,6 +15,9 @@ namespace Zork.Common
                 }
             }
         }
+
+        public bool IsDead;
+
         public IEnumerable<Item> Inventory => _inventory;
         public Thief(World world)
         {
@@ -32,8 +35,6 @@ namespace Zork.Common
 
             Random rndPercentage = new Random();
             int randomNum = rndPercentage.Next(101);
-
-
         }
 
          public void AddItemToInventory(Item itemToAdd)

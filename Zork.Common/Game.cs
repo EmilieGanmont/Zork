@@ -23,10 +23,10 @@ namespace Zork.Common
         [JsonIgnore]
         public bool IsRunning { get; private set; }
 
-        public Game(World world, string startingLocation, string startingWeapon)
+        public Game(World world, string startingLocation, string startingWeapon, int maxHealth)
         {
             World = world;
-            Player = new Player(World, startingLocation, startingWeapon);
+            Player = new Player(World, startingLocation, startingWeapon, maxHealth);
             Thief = new Thief(World);
         }
 
@@ -134,6 +134,10 @@ namespace Zork.Common
                 case Commands.Score:
                     Output.WriteLine($"Your score is {Player.Score} in {Player.Moves} moves.");
                     break;
+
+                case Commands.Diagnose:
+                    Diagnose();
+                    break;
                    
                 default:
                     Output.WriteLine("Unknown command.");
@@ -184,52 +188,6 @@ namespace Zork.Common
             }
         }
 
-        private void ThiefStoleItem()
-        {
-            Random rnd = new Random();
-            int rndItem = rnd.Next(Player.CurrentRoom.Inventory.Count());
-            Item itemToTake = null;
-
-            if(Player.CurrentRoom.Inventory.Count() != 0)
-            {
-                itemToTake = Player.CurrentRoom.Inventory.ElementAt(rndItem);
-            }
-
-            if (itemToTake == null)
-            {
-               // Output.WriteLine($"The thief tried to take something, but it doesn't exist.");
-            }
-            else 
-            {
-                Thief.AddItemToInventory(itemToTake);
-                Player.CurrentRoom.RemoveItemFromInventory(itemToTake);
-                Output.WriteLine($"{itemToTake.Name} was taken.");
-            }
-        }
-        private void ThiefDropItem()
-        {
-            Random rnd = new Random();
-            int rndItem = rnd.Next(Thief.Inventory.Count());
-            Item itemToDrop = null;
-        
-            if (Thief.Inventory.Count() != 0)
-            {
-                itemToDrop = Thief.Inventory.ElementAt(rndItem);
-            }
-        
-            if (itemToDrop == null)
-            {
-                //Output.WriteLine($"The thief tried to drop something, but it doesn't exist.");
-            }
-            else if(itemToDrop.IsValuable == false)
-            {
-                Thief.RemoveItemFromInventory(itemToDrop);
-                Thief.CurrentRoom.AddItemToInventory(itemToDrop);
-                //Output.WriteLine($"{itemToDrop.Name} was left here");
-                Output.WriteLine($"{itemToDrop.Name} was left in {Thief.CurrentRoom}");
-            }
-        }
-
         private void Drop(string itemName)
         {
             Item itemToDrop = Player.Inventory.FirstOrDefault(item => string.Compare(item.Name, itemName, ignoreCase: true) == 0);
@@ -243,6 +201,115 @@ namespace Zork.Common
                 Player.RemoveItemFromInventory(itemToDrop);
                 Output.WriteLine("Dropped.");
             }
+        }
+
+        private void ThiefStoleItem()
+        {
+            Random rnd = new Random();
+            int rndItem = rnd.Next(Thief.CurrentRoom.Inventory.Count());
+            Item itemToTake = null;
+
+            if (Player.CurrentRoom.Inventory.Count() != 0)
+            {
+                itemToTake = Thief.CurrentRoom.Inventory.ElementAt(rndItem);
+            }
+
+            if (itemToTake == null)
+            {
+                // Output.WriteLine($"The thief tried to take something, but it doesn't exist.");
+            }
+            else
+            {
+                Thief.AddItemToInventory(itemToTake);
+                Thief.CurrentRoom.RemoveItemFromInventory(itemToTake);
+                Output.WriteLine($"{itemToTake.Name} was taken.");
+            }
+        }
+
+        private void ThiefDropItem()
+        {
+            Random rnd = new Random();
+            int rndItem = rnd.Next(Thief.Inventory.Count());
+            Item itemToDrop = null;
+
+            if (Thief.Inventory.Count() != 0)
+            {
+                itemToDrop = Thief.Inventory.ElementAt(rndItem);
+            }
+
+            if (itemToDrop == null)
+            {
+                //Output.WriteLine($"The thief tried to drop something, but it doesn't exist.");
+            }
+            else if (itemToDrop.IsValuable == false)
+            {
+                Thief.RemoveItemFromInventory(itemToDrop);
+                Thief.CurrentRoom.AddItemToInventory(itemToDrop);
+                Output.WriteLine($"{itemToDrop.Name} was left in {Thief.CurrentRoom}");
+            }
+        }
+
+        private void Steal()
+        {
+            Random rnd = new Random();
+            int rndItem = rnd.Next(Player.Inventory.Count());
+            Item itemToTake = null;
+
+            if (Player.Inventory.Count() != 0)
+            {
+                itemToTake = Player.Inventory.ElementAt(rndItem);
+            }
+
+            if (itemToTake == null)
+            {
+                Output.WriteLine($"The thief tried to take something from, but is disappointed by your empty pockets.");
+            }
+            else
+            {
+                Thief.AddItemToInventory(itemToTake);
+                Player.CurrentRoom.RemoveItemFromInventory(itemToTake);
+                Output.WriteLine($"Before you knew it, {itemToTake.Name} was stolen!");
+            }
+        }
+
+        private void ForceDrop()
+        {
+            Random rnd = new Random();
+            int rndItem = rnd.Next(Player.Inventory.Count());
+            Item itemToDrop = null;
+
+            if (Player.Inventory.Count() != 0)
+            {
+                itemToDrop = Thief.Inventory.ElementAt(rndItem);
+            }
+
+            if (itemToDrop == null)
+            {
+                Output.WriteLine($"The thief gave a nasty kick. If you were holding something, you would have dropped it.");
+            }
+            else
+            {
+                Player.RemoveItemFromInventory(itemToDrop);
+                Output.WriteLine("The thief gave a nasty kick. You dropped {itemToDrop.Name}!");
+            }
+        }
+
+        private void Diagnose()
+        {
+
+           if(Player.CurrentHealth == Player.MaxHealth)
+           {
+               Output.WriteLine("You are perfectly healthy.");
+           }
+           else if(Player.CurrentHealth <= 0)
+            {
+               Output.WriteLine("You are dead.");
+            }
+            else
+            {
+               Output.WriteLine("You are wounded.");
+            }
+
         }
 
         private static Commands ToCommand(string commandString) => Enum.TryParse(commandString, true, out Commands result) ? result : Commands.Unknown;

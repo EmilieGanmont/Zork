@@ -22,6 +22,8 @@
         I = Inventory,
         Reward,
         Score,
+        Attack,
+        Diagnose,
         Unknown
     }
 }
