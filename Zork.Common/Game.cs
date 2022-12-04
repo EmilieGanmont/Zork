@@ -141,7 +141,21 @@ namespace Zork.Common
                     break;
 
                 case Commands.Attack:
-                    PlayerAttack();
+                    Item weapon = Player.Inventory.FirstOrDefault(item => string.Compare(item.Name, "sword", ignoreCase: true) == 0);
+
+                    if (weapon == null)
+                    {
+                        Output.WriteLine("You don't have your sword!");
+                    }
+                    else if(Player.CurrentRoom != Thief.CurrentRoom)
+                    {
+                        Output.WriteLine("You attack the air because there is no one here.");
+                    }
+                    else
+                    {
+                        PlayerAttack();
+                    }
+
                     break;
 
                 case Commands.Diagnose:
@@ -199,7 +213,11 @@ namespace Zork.Common
                 Look();
             }
 
-            ThiefAction();
+
+            if(Player.CurrentRoom != Thief.CurrentRoom)
+            {
+                ThiefAction();
+            }
 
            Console.WriteLine($"\n{Player.CurrentRoom}");
         }
