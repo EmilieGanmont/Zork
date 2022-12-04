@@ -1,7 +1,7 @@
 ﻿{
     "StartingLocation": "West of House",
     "StartingWeapon": "Sword",
-    "MaxHealth": 3,
+    "MaxHealth": 2,
     "World": {
         "Items": [
             {

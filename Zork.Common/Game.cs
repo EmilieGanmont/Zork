@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
@@ -83,10 +84,6 @@ namespace Zork.Common
                 case Commands.West:
                     Directions direction = (Directions)command;
                     Output.WriteLine(Player.Move(direction) ? $"You moved {direction}." : "The way is shut!");
-                    Thief.ChangeRoom();
-                    ThiefStoleItem();
-                    ThiefDropItem();
-                    Console.WriteLine($"Thief says hi from {Thief.CurrentRoom}");
                     break;
 
                 case Commands.Take:
@@ -96,7 +93,15 @@ namespace Zork.Common
                     }
                     else
                     {
-                        Take(subject);
+                        if(!Player.IsDead())
+                        {
+                            Take(subject);
+                        }
+                        else
+                        {
+                            Output.WriteLine($"The {subject} passed through your hand.");
+                        }
+
                     }
                     break;
 
@@ -127,7 +132,7 @@ namespace Zork.Common
                     break;
 
                 case Commands.Reward:
-                    Output.WriteLine($"Increased score.");
+                    Output.WriteLine($"Great job here's a point.");
                     Player.Score++;
                     break;
 
@@ -135,8 +140,47 @@ namespace Zork.Common
                     Output.WriteLine($"Your score is {Player.Score} in {Player.Moves} moves.");
                     break;
 
+                case Commands.Attack:
+                    PlayerAttack();
+                    break;
+
                 case Commands.Diagnose:
                     Diagnose();
+                    break;
+
+                case Commands.Resurrection:
+                    if(Player.IsDead())
+                    {
+                        Output.WriteLine($"By praying, you restore to full health.");
+                        Player.CurrentHealth = Player.MaxHealth;
+                    }
+                    else
+                    {
+                        Output.WriteLine($"You say a prayer, but nothing happened.");
+                    }
+                    break;
+
+                case Commands.Locate:
+                    if(!Thief.IsDead)
+                    {
+                        Output.WriteLine($"There is a Thief in {Thief.CurrentRoom}");
+                    }
+                    else
+                    {
+                        Output.WriteLine($"There is a dead Thief in {Thief.CurrentRoom}");
+                    }
+                    break;
+
+                case Commands.Summon:
+                    if(!Thief.IsDead)
+                    {
+                        Output.WriteLine("By making a strange chant, you summon a thief here. He doesn't seem happy too about it.");
+                        Thief.CurrentRoom = Player.CurrentRoom;
+                    }
+                    else
+                    {
+                        Output.WriteLine("There is no one to summon.");
+                    }
                     break;
                    
                 default:
@@ -155,10 +199,7 @@ namespace Zork.Common
                 Look();
             }
 
-            if(Player.CurrentRoom == Thief.CurrentRoom)
-            {
-                //ThiefStoleItem();
-            }
+            ThiefAction();
 
            Console.WriteLine($"\n{Player.CurrentRoom}");
         }
@@ -203,7 +244,7 @@ namespace Zork.Common
             }
         }
 
-        private void ThiefStoleItem()
+        private void StealFromRoom()
         {
             Random rnd = new Random();
             int rndItem = rnd.Next(Thief.CurrentRoom.Inventory.Count());
@@ -214,15 +255,15 @@ namespace Zork.Common
                 itemToTake = Thief.CurrentRoom.Inventory.ElementAt(rndItem);
             }
 
-            if (itemToTake == null)
-            {
-                // Output.WriteLine($"The thief tried to take something, but it doesn't exist.");
-            }
-            else
+            if (itemToTake != null)
             {
                 Thief.AddItemToInventory(itemToTake);
                 Thief.CurrentRoom.RemoveItemFromInventory(itemToTake);
-                Output.WriteLine($"{itemToTake.Name} was taken.");
+
+                if(Thief.CurrentRoom == Player.CurrentRoom)
+                {
+                    Output.WriteLine($"{itemToTake.Name} seems missing.");
+                }
             }
         }
 
@@ -249,7 +290,7 @@ namespace Zork.Common
             }
         }
 
-        private void Steal()
+        private void StealFromPlayer()
         {
             Random rnd = new Random();
             int rndItem = rnd.Next(Player.Inventory.Count());
@@ -292,6 +333,81 @@ namespace Zork.Common
                 Player.RemoveItemFromInventory(itemToDrop);
                 Output.WriteLine("The thief gave a nasty kick. You dropped {itemToDrop.Name}!");
             }
+        }
+
+        private void PlayerAttack()
+        {
+            Output.WriteLine("You attacked the thief!");
+
+            Random rnd = new Random();
+            int successChance = rnd.Next(Player.Score);
+            int attackCheck = 10;
+
+            if(successChance >= attackCheck)
+            {
+                Output.WriteLine("With a slice to the head, the thief gives his last breath and is enveloped by a black fog.");
+                Output.WriteLine("As the fog lifts, all that's left is the thief's spoils on the ground.");
+
+                Thief.IsDead = true;
+
+                foreach(Item i in Thief.Inventory.ToList())
+                {
+                    Thief.RemoveItemFromInventory(i);
+                }
+            }
+            else
+            {
+                Output.WriteLine("The thief dodged! He stabs you with his stiletto leaving a nasty gash.");
+                Player.CurrentHealth--;
+
+                if (Player.IsDead())
+                {
+                    Output.Write("You are now dead. You dropped everything on the ground.");
+
+                    if (Player.Inventory.Count() != 0)
+                    {
+                        foreach (Item i in Player.Inventory.ToList())
+                        {
+                            Player.RemoveItemFromInventory(i);
+                        }
+                    }
+
+                }
+            }
+            
+        }
+
+        private void ThiefAction()
+        {
+            List<Action> thiefActions = new List<Action>();
+            List<Action> thiefAloneActions = new List<Action>();
+
+            thiefActions.Add(ForceDrop);
+            thiefActions.Add(StealFromPlayer);
+
+            thiefAloneActions.Add(StealFromRoom);
+            thiefAloneActions.Add(ThiefDropItem);
+
+
+            Random rnd= new Random();
+            int rndAction = rnd.Next(thiefActions.Count);
+            int rndAloneAction = rnd.Next(thiefAloneActions.Count);
+
+            if (!Thief.IsDead)
+            {
+                if (Player.CurrentRoom == Thief.CurrentRoom)
+                {
+                    thiefActions.ElementAt(rndAction);
+                    thiefActions.ElementAt(rndAloneAction);
+                }
+                else
+                {
+                    thiefActions.ElementAt(rndAloneAction);
+                }
+
+                Thief.ChangeRoom();
+            }
+
         }
 
         private void Diagnose()

@@ -24,6 +24,9 @@
         Score,
         Attack,
         Diagnose,
+        Locate,
+        Summon,
+        Resurrection,
         Unknown
     }
 }

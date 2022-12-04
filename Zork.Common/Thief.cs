@@ -16,7 +16,7 @@ namespace Zork.Common
             }
         }
 
-        public bool IsDead;
+        public bool IsDead = false;
 
         public IEnumerable<Item> Inventory => _inventory;
         public Thief(World world)
@@ -32,9 +32,6 @@ namespace Zork.Common
             Random rndRoom = new Random();
             int randomRoomID = rndRoom.Next(_world.Rooms.Length);
             CurrentRoom = _world.Rooms[randomRoomID];
-
-            Random rndPercentage = new Random();
-            int randomNum = rndPercentage.Next(101);
         }
 
          public void AddItemToInventory(Item itemToAdd)

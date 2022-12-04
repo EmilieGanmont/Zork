@@ -85,20 +85,16 @@ namespace Zork.Common
     
         }
 
-        public bool IsDead
+        public bool IsDead()
         {
-            get
+            if(_currentHealth <= 0)
             {
-                return _isDead;
+                return true;
             }
-            set
-            {
-                if (_currentHealth <= 0)
-                {
-                    _isDead = true;
-                }
-            }
+
+            return false;
         }
+
         public IEnumerable<Item> Inventory => _inventory;
 
         public Player(World world, string startingLocation, string startingWeapon, int maxHealth)
@@ -188,7 +184,6 @@ namespace Zork.Common
 
         private int _currentHealth;
         private int _maxHealth;
-        private bool _isDead = false;
 
         private readonly List<Item> _inventory;
     }
