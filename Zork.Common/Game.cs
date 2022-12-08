@@ -41,7 +41,15 @@ namespace Zork.Common
             Output.WriteLine("Welcome to Zork!");
             Look();
             Console.WriteLine($"\n{Player.CurrentRoom}");
-            Console.WriteLine($"Thief says hi from {Thief.CurrentRoom}");
+
+            if (Player.CurrentRoom != Thief.CurrentRoom)
+            {
+                Output.WriteLine("There is a thief lurking about...");
+            }
+            else
+            {
+                Output.WriteLine("There is a thief here.");
+            }
         }
 
         public void OnInputReceived(object sender, string inputString)
@@ -143,7 +151,7 @@ namespace Zork.Common
 
                 case Commands.Reward:
                     Output.WriteLine($"Great job here's a point.");
-                    Player.Score += 5;
+                    Player.Score++;
                     break;
 
                 case Commands.Score:
@@ -151,13 +159,17 @@ namespace Zork.Common
                     break;
 
                 case Commands.Attack:
-                    if (Player.PlayerWeapon == null)
+                    if (Player.Inventory.FirstOrDefault(item => string.Compare(item.Name, "sword", ignoreCase: true) == 0) == null)
                     {
                         Output.WriteLine("You don't have your sword!");
+                        ThiefAction();
+                        Thief.ChangeRoom();
                     }
                     else if (Player.CurrentRoom != Thief.CurrentRoom)
                     {
                         Output.WriteLine("You attack the air because there is no one here.");
+                        ThiefAction();
+                        Thief.ChangeRoom();
                     }
                     else
                     {
@@ -306,10 +318,15 @@ namespace Zork.Common
                 itemToDrop = Thief.Inventory.ElementAt(rndItem);
             }
 
-             if (itemToDrop != null && itemToDrop.IsValuable == false)
+            if (itemToDrop != null && itemToDrop.IsValuable == false)
             {
                 Thief.RemoveItemFromInventory(itemToDrop);
                 Thief.CurrentRoom.AddItemToInventory(itemToDrop);
+
+                if (Player.CurrentRoom == Thief.CurrentRoom)
+                {
+                    Output.WriteLine($"The thief disappeared, but seemed to have dropped the {itemToDrop.Name} in his place...");
+                }
             }
         }
 
@@ -324,11 +341,11 @@ namespace Zork.Common
                 itemToTake = Player.Inventory.ElementAt(rndItem);
             }
 
-            if (itemToTake == null || itemToTake == Player.PlayerWeapon)
+            if (itemToTake == null)
             {
                 Output.WriteLine($"The thief tried to take something from you, but is disappointed by your empty pockets.");
             }
-            else
+            else if (itemToTake != Player.PlayerWeapon)
             {
                 Thief.AddItemToInventory(itemToTake);
                 Player.RemoveItemFromInventory(itemToTake);
@@ -387,7 +404,7 @@ namespace Zork.Common
             }
             else
             {
-                Output.WriteLine("The thief dodged! He stabs you with his stiletto leaving a nasty gash.");
+                Output.WriteLine("The thief dodged! He stabs you with his blade leaving you a nasty gash. He escapes in the confusion.");
                 Player.CurrentHealth--;
                 Thief.ChangeRoom();
 
@@ -406,7 +423,6 @@ namespace Zork.Common
 
                 }
             }
-
         }
 
         private void ThiefAction()
@@ -419,7 +435,6 @@ namespace Zork.Common
             thiefAloneActions.Add(StealFromRoom);
             thiefAloneActions.Add(ThiefDropItem);
 
-
             Random rnd = new Random();
             int rndAction = rnd.Next(thiefActions.Count);
             int rndAloneAction = rnd.Next(thiefAloneActions.Count);
@@ -430,7 +445,8 @@ namespace Zork.Common
                 {
                     thiefActions.ElementAt(rndAction).Invoke();
                 }
-                    thiefAloneActions.ElementAt(rndAloneAction).Invoke();
+
+                thiefAloneActions.ElementAt(rndAloneAction).Invoke();
             }
         }
 

@@ -48,11 +48,11 @@ public class GameManager : MonoBehaviour
 
     private void Player_StatusChanged(object sender, int currentHealth)
     {
-        if (currentHealth == _game.Player.MaxHealth)
+        if (currentHealth == _game.Player.MaxHealth )
         {
             StatusText.text = "Healthy";
         }
-        else if (currentHealth < 0)
+        else if (currentHealth <= 0)
         {
             StatusText.text = "Dead";
         }

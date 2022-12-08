@@ -39,20 +39,21 @@ namespace Zork.Common
         }
         public int Score
         {
-            get 
-            { 
-                return _score; 
+            get
+            {
+                return _score;
             }
             set
             {
-                if(_score != value)
+                if (_score != value)
                 {
                     _score = value;
                     ScoreChanged?.Invoke(this, _score);
                 }
             }
         }
-        public Item PlayerWeapon {
+        public Item PlayerWeapon
+        {
             get
             {
                 return _startingWeapon;
@@ -64,7 +65,7 @@ namespace Zork.Common
                     _startingWeapon = value;
                 }
             }
-
+        
         }
         public int MaxHealth
         {
@@ -88,19 +89,19 @@ namespace Zork.Common
                 return _currentHealth;
             }
             set
-            {              
-                if(_currentHealth != value)
+            {
+                if (_currentHealth != value)
                 {
                     _currentHealth = value;
-                    StatusChanged?.Invoke(this, _score);
+                    StatusChanged?.Invoke(this, _currentHealth);
                 }
             }
-    
+
         }
 
         public bool IsDead()
         {
-            if(_currentHealth <= 0)
+            if (_currentHealth <= 0)
             {
                 return true;
             }
@@ -121,7 +122,7 @@ namespace Zork.Common
 
             _inventory = new List<Item>();
 
-            if(_world.ItemsByName.TryGetValue(startingWeapon, out _startingWeapon) == false)
+            if (_world.ItemsByName.TryGetValue(startingWeapon, out _startingWeapon) == false)
             {
                 throw new Exception($"Invalid starting weapon: {startingWeapon}");
             }
