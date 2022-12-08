@@ -16,15 +16,27 @@ namespace Zork.Common
             }
         }
 
+        public int DeathChance
+        {
+            get
+            {
+                return _deathChance;
+            }
+            set
+            {
+                DeathChance = _deathChance;
+            }
+        }
+
         public bool IsDead = false;
 
         public IEnumerable<Item> Inventory => _inventory;
-        public Thief(World world)
+        public Thief(World world, int deathChance)
         {
             _world = world;
             ChangeRoom();
-
             _inventory = new List<Item>();
+            _deathChance = deathChance;
         }
 
         public void ChangeRoom()
@@ -56,5 +68,6 @@ namespace Zork.Common
         private readonly World _world;
         private Room _currentRoom;
         private readonly List<Item> _inventory;
+        private int _deathChance;
     }
 }

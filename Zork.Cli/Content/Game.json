@@ -2,72 +2,105 @@
     "StartingLocation": "West of House",
     "StartingWeapon": "Sword",
     "MaxHealth": 2,
+    "ThiefStartingItem": "Siletto",
+    "ThiefDeathChance":  10,
     "World": {
         "Items": [
             {
                 "Name": "Mat",
                 "LookDescription": "A rubber mat with the words 'Welcome to Zork!' written on it lies here.",
-                "IsValuable": false
+                "IsValuable": false,
+                "Value":  1
             },
             {
                 "Name": "Mailbox",
                 "LookDescription": "There is a small mailbox here.",
-                "IsValuable": false
+                "IsValuable": false,
+                "Value": 2
             },
             {
                 "Name": "Sword",
                 "LookDescription": "An Elvish sword of great antiquity lies here.",
-                "IsValuable": false
+                "IsValuable": false,
+                "Value": 0
             },
             {
                 "Name": "Egg",
                 "LookDescription": "A jewel encrusted egg lies here.",
-                "IsValuable": true
+                "IsValuable": true,
+                "Value": 7
             },
             {
-                "Name": "Leaves",
-                "LookDescription": "There is a small pile of leaves here.",
-                "IsValuable": false
+                "Name": "Leaf",
+                "LookDescription": "There is a lone leaf here.",
+                "IsValuable": false,
+                "Value": 1
             },
             {
                 "Name": "Stiletto",
                 "LookDescription": "A sharp stiletto lies here.",
-                "IsValuable": true
+                "IsValuable": true,
+                "Value": 5
             },
             {
                 "Name": "Lantern",
                 "LookDescription": "A broken lantern lies here.",
-                "IsValuable": false
+                "IsValuable": false,
+                "Value": 3
             },
             {
                 "Name": "Zork",
                 "LookDescription": "A disk with the game Zork lies here.",
-                "IsValuable": true
+                "IsValuable": true,
+                "Value": 10
             },
             {
                 "Name": "Rock",
                 "LookDescription": "A big rock lies here.",
-                "IsValuable": false
+                "IsValuable": false,
+                "Value": 1
             },
             {
                 "Name": "Diamond",
                 "LookDescription": "A small, but shiny diamond lies here.",
-                "IsValuable": true
+                "IsValuable": true,
+                "Value": 7
             },
             {
                 "Name": "Bell",
                 "LookDescription": "There is a brass bell here.",
-                "IsValuable": false
+                "IsValuable": false,
+                "Value": 2
             },
             {
-                "Name": "Candles",
-                "LookDescription": "There is a set of melted candles here.",
-                "IsValuable": false
+                "Name": "Candle",
+                "LookDescription": "There is a melted candle here.",
+                "IsValuable": false,
+                "Value": 3
             },
             {
                 "Name": "Skull",
                 "LookDescription": "There is a crystal skull here.",
-                "IsValuable": true
+                "IsValuable": true,
+                "Value": 6
+            },
+            {
+                "Name": "Mushroom",
+                "LookDescription": "There is a red and spotted mushroom here.",
+                "IsValuable": false,
+                "Value": 1
+            },
+            {
+                "Name": "Rope",
+                "LookDescription": "There is some rope here.",
+                "IsValuable": false,
+                "Value": 1
+            },
+            {
+                "Name": "Coin",
+                "LookDescription": "A small gold coin lies here.",
+                "IsValuable": true,
+                "Value": 5
             }
         ],
         "Rooms": [
@@ -93,7 +126,8 @@
                     "West": "West of House"
                 },
                 "InventoryNames": [
-                    "Leaves"
+                    "Leaf",
+                    "Diamond"
                 ]
             },
             {
@@ -104,7 +138,8 @@
                     "West": "West of House"
                 },
                 "InventoryNames": [
-                    "Rock"
+                    "Rock",
+                    "Stiletto"
                 ]
             },
             {
@@ -140,7 +175,8 @@
                     "East": "Clearing"
                 },
                 "InventoryNames": [
-                    "Lantern"
+                    "Candle",
+                    "Bell"
                 ]
             },
             {
@@ -151,7 +187,8 @@
                     "East": "Clearing"
                 },
                 "InventoryNames": [
-                    "Bell"
+                    "Mushroom",
+                    "Coin"
                 ]
             },
             {
@@ -162,7 +199,8 @@
                     "South": "Forest 3"
                 },
                 "InventoryNames": [
-                    "Candles"
+                    "Lantern",
+                    "Rope"
                 ]
             }
         ]

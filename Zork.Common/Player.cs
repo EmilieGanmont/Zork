@@ -21,7 +21,6 @@ namespace Zork.Common
                 }
             }
         }
-
         public int Moves
         {
             get
@@ -37,7 +36,6 @@ namespace Zork.Common
                 }
             }
         }
-
         public int Score
         {
             get 
@@ -53,7 +51,20 @@ namespace Zork.Common
                 }
             }
         }
+        public Item PlayerWeapon {
+            get
+            {
+                return _startingWeapon;
+            }
+            set
+            {
+                if (_startingWeapon != value)
+                {
+                    _startingWeapon = value;
+                }
+            }
 
+        }
         public int MaxHealth
         {
             get
@@ -155,7 +166,7 @@ namespace Zork.Common
         {
             if(itemToCheck.IsValuable)
             {
-                Score += itemToCheck.valuableScore;
+                Score += itemToCheck.Value;
             }
             else
             {
@@ -167,7 +178,7 @@ namespace Zork.Common
         {
             if (itemToCheck.IsValuable)
             {
-                Score -= itemToCheck.valuableScore;
+                Score -= itemToCheck.Value;
             }
             else
             {
