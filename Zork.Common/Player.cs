@@ -8,6 +8,7 @@ namespace Zork.Common
         public event EventHandler<Room> LocationChange;
         public event EventHandler<int> MovesChanged;
         public event EventHandler<int> ScoreChanged;
+        public event EventHandler<int> StatusChanged;
 
         public Room CurrentRoom
         {
@@ -91,6 +92,7 @@ namespace Zork.Common
                 if(_currentHealth != value)
                 {
                     _currentHealth = value;
+                    StatusChanged?.Invoke(this, _score);
                 }
             }
     
@@ -149,7 +151,7 @@ namespace Zork.Common
             }
 
             _inventory.Add(itemToAdd);
-            AddToScore(itemToAdd);
+            Score += itemToAdd.Value;
         }
 
         public void RemoveItemFromInventory(Item itemToRemove)
@@ -159,33 +161,8 @@ namespace Zork.Common
                 throw new Exception("Could not remove item from inventory.");
             }
 
-            SubtractFromScore(itemToRemove);
+            Score -= itemToRemove.Value;
         }
-
-        public void AddToScore(Item itemToCheck)
-        {
-            if(itemToCheck.IsValuable)
-            {
-                Score += itemToCheck.Value;
-            }
-            else
-            {
-                Score++;
-            }
-        }
-
-        public void SubtractFromScore(Item itemToCheck)
-        {
-            if (itemToCheck.IsValuable)
-            {
-                Score -= itemToCheck.Value;
-            }
-            else
-            {
-                Score--;
-            }
-        }
-
 
         private readonly World _world;
         private Item _startingWeapon;

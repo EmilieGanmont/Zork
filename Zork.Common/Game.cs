@@ -195,7 +195,7 @@ namespace Zork.Common
                 case Commands.Summon:
                     if (!Thief.IsDead)
                     {
-                        Output.WriteLine("By making a strange chant, you summon a thief here. He doesn't seem happy too about it.");
+                        Output.WriteLine("By making a strange chant, you summon a thief here. He doesn't seem too happy about it.");
                         Thief.CurrentRoom = Player.CurrentRoom;
                     }
                     else
@@ -282,12 +282,10 @@ namespace Zork.Common
 
             if (itemToTake != null)
             {
-                if (itemToTake == Thief.CurrentRoom.Inventory.FirstOrDefault(item => string.Compare(item.Name, "sword", ignoreCase: true) == 0))
+                if (itemToTake != Thief.CurrentRoom.Inventory.FirstOrDefault(item => string.Compare(item.Name, "sword", ignoreCase: true) == 0))
                 {
                     Thief.AddItemToInventory(itemToTake);
                     Thief.CurrentRoom.RemoveItemFromInventory(itemToTake);
-
-                    Output.WriteLine($"Theif stole {itemToTake}");
 
                     if (Thief.CurrentRoom == Player.CurrentRoom)
                     {

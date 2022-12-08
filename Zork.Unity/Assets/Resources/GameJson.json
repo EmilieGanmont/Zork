@@ -1,99 +1,208 @@
-{
-  "StartingLocation": "West of House",
-  "World": {
-    "Items": [
-      {
-        "Name": "Mat",
-        "LookDescription": "A rubber mat saying 'Welcome to Zork!' lies here.",
-        "InventoryDescription": "A welcome mat."
-      },
-      {
-        "Name": "Mailbox",
-        "LookDescription": "There is a small mailbox here.",
-        "InventoryDescription": "A small mailbox."
-      },
-      {
-        "Name": "Leaves",
-        "LookDescription": "There is a pile of leaves here.",
-        "InventoryDescription": "A pile of leaves."
-      }
-    ],
-    "Rooms": [
-      {
-        "Name": "West of House",
-        "Description": "This is an open field west of a white house, with a boarded front door.",
-        "NeighborNames": {
-          "North": "North of House",
-          "South": "South of House",
-          "West": "Forest 1"
-        },
-        "InventoryNames": [
-          "Mat",
-          "Mailbox"
+﻿{
+    "StartingLocation": "West of House",
+    "StartingWeapon": "Sword",
+    "MaxHealth": 2,
+    "ThiefStartingItem": "Siletto",
+    "ThiefDeathChance":  10,
+    "World": {
+        "Items": [
+            {
+                "Name": "Mat",
+                "LookDescription": "A rubber mat with the words 'Welcome to Zork!' written on it lies here.",
+                "IsValuable": false,
+                "Value":  1
+            },
+            {
+                "Name": "Mailbox",
+                "LookDescription": "There is a small mailbox here.",
+                "IsValuable": false,
+                "Value": 2
+            },
+            {
+                "Name": "Sword",
+                "LookDescription": "An Elvish sword of great antiquity lies here.",
+                "IsValuable": false,
+                "Value": 0
+            },
+            {
+                "Name": "Egg",
+                "LookDescription": "A jewel encrusted egg lies here.",
+                "IsValuable": true,
+                "Value": 7
+            },
+            {
+                "Name": "Leaf",
+                "LookDescription": "There is a lone leaf here.",
+                "IsValuable": false,
+                "Value": 1
+            },
+            {
+                "Name": "Stiletto",
+                "LookDescription": "A sharp stiletto lies here.",
+                "IsValuable": true,
+                "Value": 5
+            },
+            {
+                "Name": "Lantern",
+                "LookDescription": "A broken lantern lies here.",
+                "IsValuable": false,
+                "Value": 3
+            },
+            {
+                "Name": "Zork",
+                "LookDescription": "A disk with the game Zork lies here.",
+                "IsValuable": true,
+                "Value": 10
+            },
+            {
+                "Name": "Rock",
+                "LookDescription": "A big rock lies here.",
+                "IsValuable": false,
+                "Value": 1
+            },
+            {
+                "Name": "Diamond",
+                "LookDescription": "A small, but shiny diamond lies here.",
+                "IsValuable": true,
+                "Value": 7
+            },
+            {
+                "Name": "Bell",
+                "LookDescription": "There is a brass bell here.",
+                "IsValuable": false,
+                "Value": 2
+            },
+            {
+                "Name": "Candle",
+                "LookDescription": "There is a melted candle here.",
+                "IsValuable": false,
+                "Value": 3
+            },
+            {
+                "Name": "Skull",
+                "LookDescription": "There is a crystal skull here.",
+                "IsValuable": true,
+                "Value": 6
+            },
+            {
+                "Name": "Mushroom",
+                "LookDescription": "There is a red and spotted mushroom here.",
+                "IsValuable": false,
+                "Value": 1
+            },
+            {
+                "Name": "Rope",
+                "LookDescription": "There is some rope here.",
+                "IsValuable": false,
+                "Value": 1
+            },
+            {
+                "Name": "Coin",
+                "LookDescription": "A small gold coin lies here.",
+                "IsValuable": true,
+                "Value": 5
+            }
+        ],
+        "Rooms": [
+            {
+                "Name": "West of House",
+                "Description": "This is an open field west of a white house, with a boarded front door.",
+                "NeighborNames": {
+                    "North": "North of House",
+                    "South": "South of House",
+                    "West": "Forest 1"
+                },
+                "InventoryNames": [
+                    "Mat",
+                    "Mailbox"
+                ]
+            },
+            {
+                "Name": "North of House",
+                "Description": "You are facing the north side of a white house. There is no door here, and all the windows are barred.",
+                "NeighborNames": {
+                    "North": "Forest 2",
+                    "East": "Behind House",
+                    "West": "West of House"
+                },
+                "InventoryNames": [
+                    "Leaf",
+                    "Diamond"
+                ]
+            },
+            {
+                "Name": "South of House",
+                "Description": "You are facing the south side of a white house. There is no door here, and all the windows are barred.",
+                "NeighborNames": {
+                    "East": "Behind House",
+                    "West": "West of House"
+                },
+                "InventoryNames": [
+                    "Rock",
+                    "Stiletto"
+                ]
+            },
+            {
+                "Name": "Behind House",
+                "Description": "You are behind the white house. In one corner of the house is a small window which is slightly ajar.",
+                "NeighborNames": {
+                    "North": "North of House",
+                    "East": "Clearing",
+                    "South": "South of House"
+                },
+                "InventoryNames": [
+                    "Skull",
+                    "Zork"
+                ]
+            },
+            {
+                "Name": "Forest 1",
+                "LookName": "Forest",
+                "Description": "This is a forest, with trees in all directions around you.",
+                "NeighborNames": {
+                    "South": "Forest 3",
+                    "East": "West of House"
+                },
+                "InventoryNames": [
+                    "Egg"
+                ]
+            },
+            {
+                "Name": "Forest 2",
+                "Description": "This is a dimly lit forest, with large trees all around. One particularly large tree with some low branches stands here.",
+                "NeighborNames": {
+                    "South": "Clearing",
+                    "East": "Clearing"
+                },
+                "InventoryNames": [
+                    "Candle",
+                    "Bell"
+                ]
+            },
+            {
+                "Name": "Forest 3",
+                "Description": "This is a dimly lit forest, with large trees all around. To the east, there appears to be sunlight.",
+                "NeighborNames": {
+                    "North": "South of House",
+                    "East": "Clearing"
+                },
+                "InventoryNames": [
+                    "Mushroom",
+                    "Coin"
+                ]
+            },
+            {
+                "Name": "Clearing",
+                "Description": "You are in a clearing, with a forest surrounding you on the west and south.",
+                "NeighborNames": {
+                    "West": "Forest 2",
+                    "South": "Forest 3"
+                },
+                "InventoryNames": [
+                    "Lantern",
+                    "Rope"
+                ]
+            }
         ]
-      },
-      {
-        "Name": "North of House",
-        "Description": "You are facing the north side of a white house. There is no door here, and all the windows are barred.",
-        "NeighborNames": {
-          "North": "Forest 2",
-          "East": "Behind House",
-          "West": "West of House"
-        }
-      },
-      {
-        "Name": "South of House",
-        "Description": "You are facing the south side of a white house. There is no door here, and all the windows are barred.",
-        "NeighborNames": {
-          "East": "Behind House",
-          "West": "West of House"
-        }
-      },
-      {
-        "Name": "Behind House",
-        "Description": "You are behind the white house. In one corner of the house there is a small window which is slightly ajar.",
-        "NeighborNames": {
-          "North": "North of House",
-          "East": "Clearing",
-          "South": "South of House"
-        }
-      },
-      {
-        "Name": "Forest 1",
-        "LookName": "Forest",
-        "Description": "This is a forest, with trees in all directions around you.",
-        "NeighborNames": {
-          "South": "Forest 3",
-          "East": "West of House"
-        }
-      },
-      {
-        "Name": "Forest 2",
-        "Description": "This is a dimly lit forest, with large trees all around. One particularly large tree with some low branches stands here.",
-        "NeighborNames": {
-          "South": "Clearing",
-          "East": "Clearing"
-        }
-      },
-      {
-        "Name": "Forest 3",
-        "Description": "This is a dimly lit forest, with large trees all around. To the east, there appears to be sunlight.",
-        "NeighborNames": {
-          "North": "South of House",
-          "East": "Clearing"
-        }
-      },
-      {
-        "Name": "Clearing",
-        "Description": "You are in a clearing, with a forest surrounding you on the west and south.",
-        "NeighborNames": {
-          "West": "Forest 2",
-          "South": "Forest 3"
-        },
-        "IventoryNames": [
-          "Leaves"
-        ]
-      }
-    ]
-  }
+    }
 }

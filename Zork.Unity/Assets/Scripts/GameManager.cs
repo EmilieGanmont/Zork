@@ -6,7 +6,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI LocationText, ScoreText, MovesText;
+    private TextMeshProUGUI LocationText, ScoreText, StatusText, MovesText;
 
     [SerializeField]
     private UnityInputService InputService;
@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
         _game.Player.MovesChanged += Player_MovesChanged;
         _game.Player.ScoreChanged += Player_ScoreChanged;
+        _game.Player.StatusChanged += Player_StatusChanged;
         _game.Run(InputService, OutputService);
     }
 
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
         LocationText.text = _game.Player.CurrentRoom.Name;
         ScoreText.text = $"Score: {_game.Player.Score}";
         MovesText.text = $"Moves: {_game.Player.Moves}";
+        StatusText.text = "Healthy";
     }
 
     private void Player_LocationChanged(object sender, Room location)
@@ -42,6 +44,22 @@ public class GameManager : MonoBehaviour
     private void Player_ScoreChanged(object sender, int score)
     {
         ScoreText.text = $"Score: {score}";
+    }
+
+    private void Player_StatusChanged(object sender, int currentHealth)
+    {
+        if (currentHealth == _game.Player.MaxHealth)
+        {
+            StatusText.text = "Healthy";
+        }
+        else if (currentHealth < 0)
+        {
+            StatusText.text = "Dead";
+        }
+        else
+        {
+            StatusText.text = "Wounded";
+        }
     }
 
     private void Player_MovesChanged(object sender, int moves)
